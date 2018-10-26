@@ -32,28 +32,28 @@ class ClassInserter(MultiprocessingBase.MultiprocessingBase):
 
 
 
-		
+        
 def main():
-	try:
-		queueHandler = QueueHandler.QueueHandler()
-		queueHandler.initQueue('main_queue')
+    try:
+        queueHandler = QueueHandler.QueueHandler()
+        queueHandler.initQueue('main_queue')
 
-		classReader   = ClassReader(queue_handler = queueHandler, main_queue_name = 'main_queue')
-		#create another instance to demonstrate the uniqueness of the internal queue name (address)
-		classReader2  = ClassReader(queue_handler = queueHandler, main_queue_name = 'main_queue')
-		classInserter = ClassInserter(queue_handler = queueHandler, main_queue_name = 'main_queue')
+        classReader   = ClassReader(queue_handler = queueHandler, main_queue_name = 'main_queue')
+        #create another instance to demonstrate the uniqueness of the internal queue name (address)
+        classReader2  = ClassReader(queue_handler = queueHandler, main_queue_name = 'main_queue')
+        classInserter = ClassInserter(queue_handler = queueHandler, main_queue_name = 'main_queue')
 
-		classReader.start_process()
-		classReader2.start_process()
-		classInserter.start_process()
+        classReader.start_process()
+        classReader2.start_process()
+        classInserter.start_process()
 
-		while (True): #keep main process alive
-			sleep(1)
-			
-	except KeyboardInterrupt:
-		classReader.stop_process()
-		classReader2.stop_process()
-		classInserter.stop_process()
+        while (True): #keep main process alive
+            sleep(1)
+            
+    except KeyboardInterrupt:
+        classReader.stop_process()
+        classReader2.stop_process()
+        classInserter.stop_process()
 
 if __name__ == "__main__":
-	main()
+    main()

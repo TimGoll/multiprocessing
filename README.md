@@ -19,14 +19,14 @@ class ClassReader(MultiprocessingBase.MultiprocessingBase):
         super(ClassReader, self).__init__(queue_handler)
         self.main_queue_name = main_queue_name
         self.flag = 'REDR'
-		
+        
 class ClassWriter(MultiprocessingBase.MultiprocessingBase):
     def __init__(self, queue_handler, main_queue_name):
         super(ClassInserter, self).__init__(queue_handler)
         self.main_queue_name = main_queue_name
         self.flag = 'WRTR'
-		
-		self.counter = 0
+        
+        self.counter = 0
 ```
 
 In both classes the parents class `__init__` mathod has to get called first via `super`. `queue_handler` is a necessary argument, because it is the object pointer to the queue handler which is needed, even if you don't need to use queues, because the process uses an internal queue to communicate, especially to stop the process when you call the stop function. `main_queue_name` is a string and not necessary. You can pass as many queue_names and user specific arguments as you'd like to.
