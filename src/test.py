@@ -34,13 +34,12 @@ class ClassInserter(MultiprocessingBase.MultiprocessingBase):
 
 		
 def main():
-	print "main"
 	try:
 		queueHandler = QueueHandler.QueueHandler()
 		queueHandler.initQueue('main_queue')
 
 		classReader   = ClassReader(queue_handler = queueHandler, main_queue_name = 'main_queue')
-		#create another instance to check the uniqueness of the queue name (address)
+		#create another instance to demonstrate the uniqueness of the internal queue name (address)
 		classReader2  = ClassReader(queue_handler = queueHandler, main_queue_name = 'main_queue')
 		classInserter = ClassInserter(queue_handler = queueHandler, main_queue_name = 'main_queue')
 
@@ -57,5 +56,4 @@ def main():
 		classInserter.stop_process()
 
 if __name__ == "__main__":
-	print ("name is main")
 	main()
