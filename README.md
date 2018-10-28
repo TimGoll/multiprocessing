@@ -31,7 +31,7 @@ class ClassWriter(MultiprocessingBase.MultiprocessingBase):
 
 In both classes the parents class `__init__` mathod has to get called first via `super`. `queue_handler` is a necessary argument, because it is the object pointer to the queue handler which is needed, even if you don't need to use queues, because the process uses an internal queue to communicate, especially to stop the process when you call the stop function. `main_queue_name` is a string and not necessary. You can pass as many queue_names and user specific arguments as you'd like to.
 
-In the next step you have to overwrite `init_process`, `run_process` and `deinit_process`. None of them is mendatory, but at least `run_process` should be used´and is already a loop.
+In the next step you have to overwrite `init_process`, `run_process` and `deinit_process`. None of them is mendatory, but at least `run_process` should be used and is already a loop.
 
 Therefore the finished classes look like this:
 ```python
@@ -42,7 +42,6 @@ class ClassReader(MultiprocessingBase.MultiprocessingBase):
         self.flag = 'REDR'
 
     def run_process(self):
-        #super(ClassReader, self).run_process()
         data = self.queue_handler.get(self.main_queue_name)
         if (data != None):
             print('read data: ' + str(data))
@@ -61,6 +60,8 @@ class ClassInserter(MultiprocessingBase.MultiprocessingBase):
         self.counter += 1
         sleep(0.251)
 ```
+
+A small note on `super`. `__init__` needs the super notation because it extends the code of the base class. The other three methods don't have anything to be overwritten and therefore need no `super`. 
 
 To run your code, you have to create instances of your classes and then start the processes. **Important note:** Always stop processes after you've started them or you get ghost processes running forever in the background.
 ```python
