@@ -7,7 +7,7 @@ class QueueHandler():
 
     def initQueue(self, name):
         try: # check if queue already exists
-            value = self.queues[name] #dummy
+            self.queues[name] # try accessing this queue
             print('[' + self.flag + '] [ERROR] queue with the name ' + str(name) + ' is already initialised!')
         except KeyError:
             # Key is not present; create new queue
@@ -44,6 +44,16 @@ class QueueHandler():
                     return_data = self.queues[name].get(False)
                 except queues.Empty: #queue is empty
                     return return_data
+        except KeyError:
+            # Key is not present; create new queue
+            print('[' + self.flag + '] [ERROR] queue with the name ' + str(name) + ' does not exist!')
+
+        return None
+
+    # GET READER ELEMENT
+    def get_reader(self, name):
+        try: # check if queue exists
+            return self.queues[name]._reader
         except KeyError:
             # Key is not present; create new queue
             print('[' + self.flag + '] [ERROR] queue with the name ' + str(name) + ' does not exist!')
